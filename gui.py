@@ -13,19 +13,19 @@ def avg():
 def res():
     t7.delete(0,20)
     if ((int(t3.get())>35 and int(t4.get())>35)):
-        c=1
+        c="pass"
     else :
-        c=2
+        c="fail"
     t7.insert(0,c)
 def div():
     t8.delete(0,20)
     if ((int(t3.get())>35 and int(t4.get())>35)):
         if ((int(t3.get())+int(t4.get()))/2)>60:
-            c=1
+            c="first class"
         elif ((int(t3.get())+int(t4.get()))/2)>50:
-            c=2
+            c="second class"
         elif ((int(t3.get())+int(t4.get()))/2)>35:
-            c=3
+            c="third class"
     else:
         c="no division"
     t8.insert(0,c)
@@ -43,7 +43,7 @@ def insert():
     import pymysql
     conn=pymysql.connect(host="localhost",user="root",db="test",password="Hemanth@143")
     cur=conn.cursor()
-    cur.execute("insert into student values ('"+t1.get()+"',"+t2.get()+","+t3.get()+","+t4.get()+","+t5.get()+","+t6.get()+","+t7.get()+","+t8.get()+")")
+    cur.execute("insert into table1 values ('"+t1.get()+"',"+t2.get()+","+t3.get()+","+t4.get()+","+t5.get()+","+t6.get()+",'"+t7.get()+"','"+t8.get()+"')")
     conn.commit()
     cur.close()
     conn.close()
@@ -61,7 +61,7 @@ def update():
     import pymysql
     conn=pymysql.connect(host="localhost",user="root",db="test",password="Hemanth@143")
     cur=conn.cursor()
-    cur.execute("update student set p1="+t3.get()+",p2="+t4.get()+",total="+t5.get()+",avg="+t6.get()+",res="+t7.get()+",divi="+t8.get()+" where no="+t2.get()+"")
+    cur.execute("update table1 set p1="+t3.get()+",p2="+t4.get()+",total="+t5.get()+",avg="+t6.get()+",res='"+t7.get()+"',divi='"+t8.get()+"' where num="+t2.get()+"")
     conn.commit()
     cur.close()
     conn.close()
@@ -79,25 +79,18 @@ def delete():
     import pymysql
     conn=pymysql.connect(host="localhost",user="root",db="test",password="Hemanth@143")
     cur=conn.cursor()
-    cur.execute("delete from student where no="+t2.get()+"")
+    cur.execute("delete from table1 where num="+t2.get()+"")
     conn.commit()
     cur.close()
     conn.close()
-    t1.delete(0,20)
     t2.delete(0,20)
-    t3.delete(0,20)
-    t4.delete(0,20)
-    t5.delete(0,20)
-    t6.delete(0,20)
-    t7.delete(0,20)
-    t8.delete(0,20)
     t1.focus()
     messagebox.showinfo("delete status","Deleted succesfully")
 def search():
     import pymysql
     conn=pymysql.connect(host="localhost",user="root",db="test",password="Hemanth@143")
     cur=conn.cursor()
-    cur.execute("select name,no,p1,p2,total,avg,res,divi from student where no="+t2.get()+"")
+    cur.execute("select * from table1 where num="+t2.get()+"")
     conn.commit()
     for i in cur:
         l=i
@@ -112,7 +105,7 @@ def search():
     conn.close()
     
 
-root.geometry("800x800+5+5")
+root.geometry("800x800+50+50")
 root.config(bg="light blue")
 root.title("STUDENT FORM")
 
@@ -129,7 +122,7 @@ l5=Label(root,text="Paper2 Marks ",font=("times new roman",15),bg="light blue")
 l5.place(x=400,y=200)
 l6=Label(root,text="Total ",font=("times new roman",15),bg="light blue")
 l6.place(x=50,y=300)
-l7=Label(root,text="Avarage ",font=("times new roman",15),bg="light blue")
+l7=Label(root,text="Average ",font=("times new roman",15),bg="light blue")
 l7.place(x=400,y=300)
 l8=Label(root,text="Result ",font=("times new roman",15),bg="light blue")
 l8.place(x=50,y=400)
